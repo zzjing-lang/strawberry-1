@@ -31,7 +31,7 @@ options(scipen = 999)
 2.Read data
 
 ```{r}
-setwd("~/Downloads/strawberry")
+setwd("~/Downloads/strawberry-1")
 price  <- read_csv("market_price_received.csv")
 supply <- read_csv("marketsupply.csv")
 value  <- read_csv("marketvalue.csv")
@@ -73,6 +73,7 @@ write_csv(supply_clean, "/Users/zzjing/Downloads/strawberry/marketsupply_clean.c
 write_csv(value_clean,  "/Users/zzjing/Downloads/strawberry/marketvalue_clean.csv")
 
 library(dplyr)
+library(readr)
 
 old <- read_csv("marketsupply_clean.csv")
 new <- read_csv("marketsupply2.csv")
@@ -93,6 +94,7 @@ distinct(supply_all, Year) %>% arrange(Year)
 sum(is.na(supply_all$Value))
 supply_all_clean <- supply_all %>%
   filter(!is.na(Value))
+na.rm = TRUE
 supply_all %>%
   summarise(total = sum(Value, na.rm = TRUE))
 write.csv(supply_all, "marketsupply_all_cleaned.csv", row.names = FALSE)
@@ -110,12 +112,12 @@ Data were downloaded from USDA NASS Quick Stats for years 1998–2024 (national 
 library(dplyr)
 library(readr)
 
-straw_price <- read_csv("~/Downloads/strawberry/market_price_received.csv")
+straw_price <- read_csv("~/Downloads/strawberry-1/market_price_received.csv")
 
 glimpse(straw_price)
 head(straw_price)
 straw_price_clean <- straw_price %>%
-  select(Year, State, `Data Item`, Value) %>%
+  select(Year, State, Value) %>%
   rename(Price_CWT = Value)
 
 straw_price_clean <- straw_price_clean %>%
